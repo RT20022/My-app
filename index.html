@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>H_R</title>
+</head>
+
+<style>
+  * {
+    margin: 0%;
+    padding: 0%;
+    font-size: 62.5%;
+  }
+
+  .main {
+    height: 92vh;
+    /* background-color: #ed77d2;s */
+    background: rgb(157, 69, 246);
+    background: linear-gradient(289deg, rgb(226 110 206) 19%, rgb(225 11 149) 56%, rgb(255 12 95) 91%);
+    max-height: 92vh;
+    display: flex;
+    flex-direction: column-reverse;
+    overflow: auto;
+  }
+
+
+  #input {
+    padding-left: 5px;
+    width: 80%;
+    font-size: 2.5rem;
+  }
+
+
+  #messages {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #messages>li {
+    font-size: 2.5rem;
+    padding: 0.5rem 1rem;
+  }
+
+
+#form{
+  height: 90%;
+  width: 97%;
+  display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-direction: row;
+}
+
+.foot{
+  display: flex;
+   align-items: center;
+   justify-content: center;
+  height: 7vh;
+  background-color: #1a24249c;
+}
+  #button {
+    border: 0px;
+    border-radius: 16%;
+    margin-left: 5px;
+    cursor: pointer;
+    font-size: 2.5rem;
+    padding: 0.2rem;
+    color: #eee7eeb8;
+    background: linear-gradient(289deg, rgb(226 110 206) 19%, rgb(225 11 149) 56%, rgb(255 12 95) 91%);
+  }
+
+
+  .nav{
+    height:6vh;
+    background-color: aqua;
+    font-size: 4rem;
+  }
+
+</style>
+
+<body>
+  <!-- <div class="nav">
+
+  </div> -->
+
+  <div class="main">
+    <ul id="messages">
+
+    </ul>
+  </div>
+  <div class="foot">
+    <form action="#" id="form">
+      <input type="text" name="message" autocomplete="off" id="input">
+      <button id="button">Send</button>
+    </form>
+  </div>
+
+
+
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io();
+
+    var messages = document.getElementById('messages');
+    var form = document.getElementById('form');
+    var input = document.getElementById('input');
+    // var navbar = document.querySelector(".nav")
+
+  
+
+
+    const appen = (message) => {
+      const messageElement = document.createElement("li");
+      messageElement.innerText += message;
+      messageElement.classList.add("message");
+      messages.append(messageElement)
+    }
+
+    let  name = prompt("Enter you name please")
+     socket.emit("new-user-joined",name)
+
+ socket.on("user-joined", sokid => {
+      appen(`${sokid} joined the chat`)
+    })
+
+socket.on("user-gone", (sokid) =>{
+  appen(`${sokid} left the chat`)
+})
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (input.value) {
+        socket.emit('chat message', input.value);
+        input.value = '';
+      }
+    });
+
+
+    socket.on('chat message', function (msg) {
+      var item = document.createElement('li');
+      item.textContent = msg;
+      messages.appendChild(item);
+      window.scrollTo(0, document.body.scrollHeight);
+    });
+
+  </script>
+</body>
+
+</html>

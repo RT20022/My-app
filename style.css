@@ -1,0 +1,47 @@
+*{
+    margin:0%;
+    padding: 0%;
+}
+
+.main{
+    height: 92vh;
+   background: rgb(157,69,246);
+background: linear-gradient(309deg, rgba(157,69,246,1) 10%, rgba(32,181,161,1) 56%, rgba(209,27,89,1) 91%);
+}
+
+.left{
+    padding: 2px 2px 2px 2px;
+    float:left;
+    clear:right;
+    margin-top: 10px;
+    display: inline-block;
+    font-size: 30px;
+    border: 2px solid red;
+}
+
+.right{
+    padding: 2px 2px 2px 2px;
+    float: right;
+    clear: left;
+    margin-top: 10px;
+    display: inline-block;
+    font-size: 30px;
+    border: 2px solid red;
+}
+
+#message{
+    padding-left: 5px;
+    margin-left: 5px;
+    margin-top: 5px;
+    width: 90%;
+    font-size: 30px;
+
+}
+
+#button{
+    cursor: pointer;
+    font-size: 30px;
+    width: 8%;
+}
+
+
